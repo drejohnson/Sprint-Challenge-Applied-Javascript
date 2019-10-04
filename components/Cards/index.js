@@ -28,11 +28,9 @@ axios
   .get('https://lambda-times-backend.herokuapp.com/articles')
   .then(response => {
     const articles = response.data.articles
-    console.log(articles)
     for (let [topic, article] of Object.entries(articles)) {
-      // console.log(`${key}: ${value}`);
       article.forEach(post => {
-        console.log(post)
+        // console.log(post)
         const c = Card(topic, post)
         container.appendChild(c)
       })
