@@ -1,3 +1,5 @@
+import createElement from "../../lib/createElement.js";
+
 /* If You've gotten this far, you're on your own! Although we will give you some hints:
     1. You will need to write a function that creates the carousel component, you will find the HTML below.
     2. You will need to grab a reference to all of the images
@@ -17,3 +19,51 @@
     <div class="right-button"> > </div>
   </div>
 */
+
+const container = document.querySelector(".carousel-container");
+
+const { div, img } = createElement();
+
+function Carousel() {
+  return div({ class: "carousel" }, [
+    div({ class: "left-button" }, " < "),
+    img({ class: "carousel-image", src: "./assets/carousel/mountains.jpeg" }),
+    img({ class: "carousel-image", src: "./assets/carousel/computer.jpeg" }),
+    img({ class: "carousel-image", src: "./assets/carousel/trees.jpeg" }),
+    img({ class: "carousel-image", src: "./assets/carousel/turntable.jpeg" }),
+    div({ class: "right-button" }, " > ")
+  ]);
+}
+
+const c = Carousel();
+container.appendChild(c);
+
+const carousel = document.querySelector(".carousel");
+const images = document.querySelectorAll(".carousel img");
+const left = document.querySelector(".left-button");
+const right = document.querySelector(".right-button");
+const current = document.querySelector(".current");
+
+let currentIndex = 0;
+let imgArr;
+images[0].classList.add("current");
+
+carousel.addEventListener("click", e => {
+  images.forEach(img => {
+    img.classList.remove("current");
+  });
+  if (e.target.className === "right-button") {
+    ++currentIndex;
+    images[currentIndex].classList.add("current");
+    images[
+      currentIndex
+    ].previousElementSibling.style.transform = `translateX(0)`;
+    images[currentIndex].style.transform = `translateX(-${currentIndex *
+      100}%)`;
+  } else {
+    --currentIndex;
+    images[currentIndex].classList.add("current");
+    images[currentIndex].style.transform = `translateX(-${currentIndex *
+      100}%)`;
+  }
+});

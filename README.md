@@ -29,14 +29,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager
 
 1. What is the DOM?
+   The Document Object Model is a language agnostic interface used to manipulate html
 
 2. What is an event?
+  Events user interactions that we can use
 
 3. What is an event listener?
+   A event listener is how you interact with events caused by user interact
 
 4. Why would we convert a NodeList into an Array?
+   To be able to use arry methods like map/filter/reduse
 
 5. What is a component?
+   Components are resuable pieces of code that helps keep your code DRY
 
 ### Git Set up
 

@@ -1,3 +1,5 @@
+import createElement from '../../lib/createElement.js'
+
 // STEP 3: Create Article cards.
 // -----------------------
 // Send an HTTP GET request to the following address: https://lambda-times-backend.herokuapp.com/articles
@@ -17,3 +19,32 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+const container = document.querySelector('.cards-container')
+
+const { div, img, span } = createElement()
+
+axios
+  .get('https://lambda-times-backend.herokuapp.com/articles')
+  .then(response => {
+    const articles = response.data.articles
+    for (let [topic, article] of Object.entries(articles)) {
+      article.forEach(post => {
+        // console.log(post)
+        const c = Card(topic, post)
+        container.appendChild(c)
+      })
+    }    
+  })
+
+function Card(topicName, {headline, authorName, authorPhoto}) {
+  return div({ class: "card", 'data-topic':  topicName}, [
+    div({ class: 'headline' }, headline),
+    div({ class: "author" }, [
+      div({ class: "img-container" }, [
+        img({ src:  authorPhoto})
+      ]),
+      span({}, `By ${authorName}`),
+    ])
+  ])
+}
