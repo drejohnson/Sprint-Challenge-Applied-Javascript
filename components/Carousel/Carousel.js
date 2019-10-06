@@ -40,30 +40,29 @@ container.appendChild(c);
 
 const carousel = document.querySelector(".carousel");
 const images = document.querySelectorAll(".carousel img");
-const left = document.querySelector(".left-button");
-const right = document.querySelector(".right-button");
-const current = document.querySelector(".current");
 
 let currentIndex = 0;
-let imgArr;
 images[0].classList.add("current");
 
 carousel.addEventListener("click", e => {
-  images.forEach(img => {
+  images.forEach((img, i) => {
     img.classList.remove("current");
   });
   if (e.target.className === "right-button") {
     ++currentIndex;
-    images[currentIndex].classList.add("current");
-    images[
-      currentIndex
-    ].previousElementSibling.style.transform = `translateX(0)`;
-    images[currentIndex].style.transform = `translateX(-${currentIndex *
-      100}%)`;
+    images.forEach((img, i) => {
+      img.style.transform = `translateX(${100 * -currentIndex}%)`;
+    });
+    if (currentIndex >= images.length-1) {
+      currentIndex = -1
+    }
   } else {
-    --currentIndex;
-    images[currentIndex].classList.add("current");
-    images[currentIndex].style.transform = `translateX(-${currentIndex *
-      100}%)`;
+    --currentIndex
+    if (currentIndex < 0) {
+      currentIndex = 0
+    }
+    images.forEach(img => {
+      img.style.transform = `translateX(${(100 * -currentIndex)}%)`;
+    });
   }
 });
